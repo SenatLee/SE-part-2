@@ -1,9 +1,9 @@
 class Task(object): 
     id=1
-    def __init__(self, description, programmer, workload, status = "NOT FINISHED"):
+    def __init__(self, description, programer, workload, status = "NOT FINISHED"):
         self.description = description
         self.workload = workload
-        self.programmer = programmer
+        self.programer = programer
         self.status = status
         self.id=type(self).id
         type(self).id += 1
@@ -20,25 +20,27 @@ class Task(object):
         self.status="FINISHED"
 
     def __str__(self):
-        return self.id + " : " + self.description + "(" + self.workload + "hours), " + "programmer" + self.programmer + self.status
-        # return "{0}: {1} ({2} hours), programmer {3} {4}".format(self.id, self.description, self.workload, self.programmer, self.status)
+        return "{0}: {1} ({2} hours), programer {3} {4}".format(self.id, self.description, self.workload, self.programer, self.status)
 
-class OrderBook(Task):
+class OrderBook(object):
+    def __init__(self):
+        self.orders = []
         
-    def add_order(self, description, programmer, workload, status = "NOT FINISHED"):
-        super().__init__(description, programmer, workload, status) 
+    def add_order(self, description, programer, workload, status = "NOT FINISHED"):
+        self.orders.append(Task(description, programer, workload, status)) 
 
     def all_orders(self):
         tasks = []
         tasks.append(self)    
         return tasks
 
-    def programmers(self):
+    def programers(self):
         prog = []
-        if self.programmer not in prog:
-            prog.append(self.programmer)
-        elif self.programmer not in prog:
+        if self.programer not in prog:
+            prog.append(self.programer)
+        elif self.programer not in prog:
             prog = prog
         else:
             raise Exception #add exception msg
-        return prog
+        return prog 
+    

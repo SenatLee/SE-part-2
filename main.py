@@ -5,7 +5,7 @@ if __name__ == "__main__":
 
     t1 = Task("program hello world", "Eric", 3)
     print(t1.id, t1.description, t1.programmer, t1.workload)
-    print(t1)
+    print(t1) 
     print(t1.is_finished())
     t1.mark_finished()
     print(t1)
