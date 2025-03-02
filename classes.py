@@ -30,17 +30,20 @@ class OrderBook(object):
         self.orders.append(Task(description, programer, workload, status)) 
 
     def all_orders(self):
-        tasks = []
-        tasks.append(self)    
-        return tasks
+        od = []
+        for i in range(len(self.orders)):
+            od.append(self.orders[i])
+        return od
 
     def programers(self):
-        prog = []
-        if self.programer not in prog:
-            prog.append(self.programer)
-        elif self.programer not in prog:
-            prog = prog
-        else:
-            raise Exception #add exception msg
-        return prog 
+        prog = set()
+        for i in range(len(self.orders)): 
+            prog.add(self.orders[i].programer)
+        return prog
     
+    def programer_tasks(self):
+        prog_task={}
+        for i in range(len(self.orders)):
+            id_list=[]
+            prog_task[self.orders[i].programer]=id_list.append(str(self.orders[i].id))
+        return prog_task
