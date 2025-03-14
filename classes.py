@@ -56,7 +56,65 @@ class OrderBook(object):
                 raise Exception #add exception msg 
         return prog_task
 
-# Task 4 
+# Task 4 - finished but très lourd, moyen d'optimiser ? 
     def mark_finished(self, input_id):
-        #need to enter inside self.orders to get the Task instance for which the id = input_id and then change its status to finished 
-        self.orders[input_id].status="FINISHED"
+        for i in range(len(self.orders)):
+            if self.orders[i].id==input_id:
+                self.orders[i].status="FINISHED"
+            elif self.orders[i].id!=input_id:
+                pass 
+            else: 
+                raise Exception
+    
+    def print_finished(self):
+        finished_task=[]
+        for i in range(len(self.orders)):
+            if self.orders[i].status=='FINISHED':
+                finished_task.append(str(self.orders[i]))
+                # finished_task.append(str(self.orders[i].id) + ' : ' + self.orders[i].description)
+            elif self.orders[i].status!='FINISHED':
+                pass
+            else:
+                raise Exception
+        print(finished_task)
+
+    def print_unfinished(self):
+        unfinished_task=[]
+        for i in range(len(self.orders)):
+            if self.orders[i].status=='NOT FINISHED':
+                unfinished_task.append(str(self.orders[i]))
+                # unfinished_task.append(str(self.orders[i].id) + ' : ' + self.orders[i].description)
+            elif self.orders[i].status!='NOT FINISHED':
+                pass
+            else:
+                raise Exception
+        print(unfinished_task)
+
+# Task 5 - est-ce que dans le cadre de l'exercice, je dois programmer un nouvelle fonction ? ou je peux modifier les anciens ? 
+    def status_of_programer(self,input_prog):
+        tasks_assigned=()
+        # 1st item - number of finished tasks 
+        # 2nd item - number of unfinished tasks    
+        finished_counter=0
+        unfinished_counter=0
+        sum_finished_workload=0
+        sum_unfinished_workload=0
+        for i in range (len(self.orders)):
+            if self.orders[i].programer==input_prog:
+                if self.orders[i].status=='FINISHED':
+                    finished_counter+=1
+                    sum_finished_workload+=self.orders[i].workload
+                elif self.orders[i].status=='NOT FINISHED':
+                    unfinished_counter+=1
+                    sum_unfinished_workload+=self.orders[i].workload
+                else: 
+                    raise Exception
+            elif self.orders[i].programer!=input_prog:
+                pass
+            else:
+                raise Exception(ValueError)
+            
+        tasks_assigned=(finished_counter,) + (unfinished_counter,) + (sum_finished_workload,) + (sum_unfinished_workload,) 
+        
+        return tasks_assigned
+
