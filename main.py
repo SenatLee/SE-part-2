@@ -43,15 +43,82 @@ if __name__ == "__main__":
     # orders.print_unfinished()
 
 # Test Task 5 
-    orders = OrderBook()
-    orders.add_order("program webstore", "Adele", 10)
-    orders.add_order("program mobile app for workload accounting", "Adele", 25)
-    orders.add_order("program app for practising mathematics", "Adele", 100)
-    orders.add_order("program the next facebook","Eric",1000)
+    # orders = OrderBook()
+    # orders.add_order("program webstore", "Adele", 10)
+    # orders.add_order("program mobile app for workload accounting", "Adele", 25)
+    # orders.add_order("program app for practising mathematics", "Adele", 100)
+    # orders.add_order("program the next facebook","Eric",1000)
 
-    orders.mark_finished(1)
-    orders.mark_finished(2)
+    # orders.mark_finished(1)
+    # orders.mark_finished(2)
 
-    status = orders.status_of_programer("Adele")
-    print(status)
+    # status = orders.status_of_programer("Adele")
+    # print(status)
+
+# Task 6 - don't keep in memory tasks inputted beforehand, reset memory each time it is run 
+    # command
+    command_id=int(input("command:"))
+    arguments=[]
+    software_orders=OrderBook()
+    # 1: add order 
+    if command_id==1:
+        # description
+        input_description=input("description: ")
+        arguments.append(input_description)
+        programer_and_workload=input("programer and workload estimate: ").split()
+        # programer
+        input_programer=programer_and_workload[0]
+        arguments.append(input_programer)
+        # workload
+        input_workload=int(programer_and_workload[1])
+        arguments.append(input_workload)
+    # erroneous input - raise an exception if there is only one input in programer_and_workload / workload is a string 
+
+        software_orders.add_order(arguments[0],arguments[1],arguments[2])
+        print("added!")
+    
+    #2: list finished tasks - always outputs "[]" when there is no finished task
+    elif command_id==2:
+        if not software_orders.print_finished():
+            print("no finished tasks")
+        elif software_orders.print_finished():
+            software_orders.print_finished()
+        else:
+            raise Exception
+    
+    #3: list unfinished tasks 
+    elif command_id==3:
+        if not software_orders.print_unfinished():
+            print("no unfinished tasks")
+        elif software_orders.print_unfinished():
+            software_orders.print_unfinished()
+        else:
+            raise Exception
+    
+    #4: mark task as finished
+    elif command_id==4:
+        input_id=input("id: ")
+        software_orders.mark_finished(input_id)
+        print("marked as finished")
+    # raise an exeption if there is no task to mark as finished 
+    # erroneous input - raise an exception if the id doesn't exist 
+    # erroneous input - raise an exeption if no id is inputted
+
+    #5: programers
+    elif command_id==5:
+        if not software_orders.programers():
+            print("no tasks")
+        elif software_orders.programers():
+            software_orders.programers()
+        else:
+            raise Exception
+
+    #6: status of programer 
+    elif command_id==6:
+        input_programer=input("programer: ")
+        print(software_orders.status_of_programer(input_programer))
+    # erroneous input - raise an exeption if a programer which doesn't exist is inputted
+
+    else:
+        raise Exception("Command should be included between 1 and 6")
 

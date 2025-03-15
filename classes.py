@@ -92,9 +92,7 @@ class OrderBook(object):
 
 # Task 5 - est-ce que dans le cadre de l'exercice, je dois programmer un nouvelle fonction ? ou je peux modifier les anciens ? 
     def status_of_programer(self,input_prog):
-        tasks_assigned=()
-        # 1st item - number of finished tasks 
-        # 2nd item - number of unfinished tasks    
+        tasks_assigned=()    
         finished_counter=0
         unfinished_counter=0
         sum_finished_workload=0
