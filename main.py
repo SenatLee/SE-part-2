@@ -56,26 +56,38 @@ if __name__ == "__main__":
     # print(status)
 
 # Task 6 - don't keep in memory tasks inputted beforehand, reset memory each time it is run 
+    
+    #while loop for "# 0:exit"
+
     # command
     command_id=int(input("command:"))
     arguments=[]
     software_orders=OrderBook()
+    # 0: exit
+    
     # 1: add order 
     if command_id==1:
         # description
         input_description=input("description: ")
         arguments.append(input_description)
         programer_and_workload=input("programer and workload estimate: ").split()
-        # programer
-        input_programer=programer_and_workload[0]
-        arguments.append(input_programer)
-        # workload
-        input_workload=int(programer_and_workload[1])
-        arguments.append(input_workload)
-    # erroneous input - raise an exception if there is only one input in programer_and_workload / workload is a string 
+        if programer_and_workload == 2:
+            # programer and workload
+            input_programer=programer_and_workload[0]
+            if type(input_programer)==str:
+                arguments.append(input_programer)
 
-        software_orders.add_order(arguments[0],arguments[1],arguments[2])
-        print("added!")
+                input_workload=int(programer_and_workload[1])
+                if type(input_workload)==int:
+                    arguments.append(input_workload)
+                    software_orders.add_order(arguments[0],arguments[1],arguments[2])
+                    print("added!")
+                else:
+                    raise Exception("erroneous input") 
+            else:
+                raise Exception("erroneous input")
+        else:
+            raise Exception("erroneous input")
     
     #2: list finished tasks - always outputs "[]" when there is no finished task
     elif command_id==2:
@@ -98,11 +110,17 @@ if __name__ == "__main__":
     #4: mark task as finished
     elif command_id==4:
         input_id=input("id: ")
-        software_orders.mark_finished(input_id)
-        print("marked as finished")
-    # raise an exeption if there is no task to mark as finished 
-    # erroneous input - raise an exception if the id doesn't exist 
-    # erroneous input - raise an exeption if no id is inputted
+        if type(input_id)==int and len(input_id)==1:
+            if input_id in software_orders.id:
+                if software_orders.status=='NOT FINISHED':
+                    software_orders.mark_finished(input_id)
+                    print("marked as finished")
+                else:
+                    raise Exception("erroneous input")
+            else:
+                raise Exception("erroneous input")
+        else:
+            raise Exception("erroneous input")
 
     #5: programers
     elif command_id==5:
@@ -116,9 +134,11 @@ if __name__ == "__main__":
     #6: status of programer 
     elif command_id==6:
         input_programer=input("programer: ")
-        print(software_orders.status_of_programer(input_programer))
-    # erroneous input - raise an exeption if a programer which doesn't exist is inputted
+        if input_programer in software_orders.programer:
+            print(software_orders.status_of_programer(input_programer))
+        else:
+            raise Exception("erroneous input")
 
     else:
-        raise Exception("Command should be included between 1 and 6")
+        raise Exception("Command should be included between 0 and 6")
 

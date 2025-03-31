@@ -1,11 +1,11 @@
 # Task 1 
 class Task(object): 
     id=1
-    def __init__(self, description, programer, workload, status = "NOT FINISHED"):
+    def __init__(self, description, programer, workload):
         self.description = description
         self.workload = workload
         self.programer = programer
-        self.status = status
+        self.status = "NOT FINISHED"
         self.id=type(self).id
         type(self).id += 1
 
@@ -15,7 +15,7 @@ class Task(object):
         elif self.status == "FINISHED":
             return True
         else:
-            raise Exception #add exception msg 
+            raise Exception("Not allowed status inputted") 
 
     def mark_finished(self):
         self.status="FINISHED"
@@ -53,7 +53,7 @@ class OrderBook(object):
             elif self.orders[i].programer not in prog_task:
                 prog_task[self.orders[i].programer] = [self.orders[i].id]     
             else:
-                raise Exception #add exception msg 
+                raise Exception("No programmer in OrderBook") 
         return prog_task
 
 # Task 4 - finished but très lourd, moyen d'optimiser ? 
@@ -64,7 +64,7 @@ class OrderBook(object):
             elif self.orders[i].id!=input_id:
                 pass 
             else: 
-                raise Exception
+                raise Exception ("No order corresponding to the inputted id")
     
     def print_finished(self):
         finished_task=[]
@@ -75,7 +75,7 @@ class OrderBook(object):
             elif self.orders[i].status!='FINISHED':
                 pass
             else:
-                raise Exception
+                raise Exception("Not allowed status inputted")
         print(finished_task)
 
     def print_unfinished(self):
@@ -87,7 +87,7 @@ class OrderBook(object):
             elif self.orders[i].status!='NOT FINISHED':
                 pass
             else:
-                raise Exception
+                raise Exception("Not allowed status inputted")
         print(unfinished_task)
 
 # Task 5 - est-ce que dans le cadre de l'exercice, je dois programmer un nouvelle fonction ? ou je peux modifier les anciens ? 
@@ -106,7 +106,7 @@ class OrderBook(object):
                     unfinished_counter+=1
                     sum_unfinished_workload+=self.orders[i].workload
                 else: 
-                    raise Exception
+                    raise Exception("Not allowed status inputted")
             elif self.orders[i].programer!=input_prog:
                 pass
             else:
