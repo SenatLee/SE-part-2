@@ -98,7 +98,7 @@ class OrderBook(object):
         sum_finished_workload=0
         sum_unfinished_workload=0
         for i in range (len(self.orders)):
-            if self.orders[i].programer==input_prog:
+            if self.orders[i].programer==input_prog: 
                 if self.orders[i].status=='FINISHED':
                     finished_counter+=1
                     sum_finished_workload+=self.orders[i].workload

@@ -8,7 +8,7 @@ if __name__ == "__main__":
     # print(t1.is_finished())
     # t1.mark_finished()
     # print(t1)
-    # print(t1.is_finished())
+    # print(t1.is_finished()) 
     # t2 = Task("program webstore", "Adele", 10)
     # t3 = Task("program mobile app for workload accounting", "Eric", 25)
     # print(t2)
